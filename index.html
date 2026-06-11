@@ -1,118 +1,72 @@
-!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#1B2B34">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Expense Tracker</title>
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <meta name="description" content="Simple Expense Tracker Web App to track daily spending easily and manage money efficiently.">
+  <meta name="keywords" content="expense tracker, budget app, money manager, finance tracker, daily expenses">
+  <meta name="author" content="Founder">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="app">
-    <header class="topbar">
-      <div class="brand">
-        <img src="logo.png" alt="Expense Tracker logo" class="logo">
-        <h1>Expense Tracker</h1>
+  <main class="app-shell">
+    <section class="header-card">
+      <div>
+        <p class="eyebrow">Expense Tracker</p>
+        <h1>Track your daily spending</h1>
+        <p class="subtitle">Add expenses fast, watch totals grow, and keep the history until you choose to clear it.</p>
       </div>
-      <div class="actions">
-        <button id="darkToggle" class="icon-btn" title="Toggle dark mode">🌙</button>
-        <div id="userArea" class="user-area">
-          <span id="userName" class="user-name"></span>
-          <button id="logoutBtn" class="btn small secondary">Logout</button>
-        </div>
+      <div class="summary-card">
+        <p>Total spent</p>
+        <h2 id="totalAmount">$0.00</h2>
       </div>
-    </header>
+    </section>
 
-    <main class="container">
-      <aside class="sidebar">
-        <div class="card stats-card">
-          <div class="stat-header">
-            <div>
-              <h3 id="currentDate">--</h3>
-              <p class="muted">Today</p>
-            </div>
-          </div>
-          <div class="stat-body">
-            <div>
-              <p class="muted">Total</p>
-              <h2 id="todayTotal">0</h2>
-            </div>
-            <div>
-              <p class="muted">Count</p>
-              <h2 id="todayCount">0</h2>
-            </div>
-          </div>
-        </div>
+    <section class="form-card">
+      <form id="expenseForm">
+        <label>
+          Expense name
+          <input type="text" id="expenseName" placeholder="Coffee, groceries, rent" required />
+        </label>
 
-        <div class="card add-card">
-          <h3>Add Expense</h3>
-          <div class="form-row">
-            <select id="currencySelect" class="input">
-              <option value="INR">₹ INR</option>
-              <option value="USD">$ USD</option>
-              <option value="EUR">€ EUR</option>
-              <option value="GBP">£ GBP</option>
-              <option value="JPY">¥ JPY</option>
+        <div class="row">
+          <label class="flex-grow">
+            Amount
+            <input type="number" id="expenseAmount" placeholder="0.00" step="0.01" min="0" required />
+          </label>
+
+          <label class="currency-label">
+            Currency
+            <select id="expenseCurrency">
+              <option value="$">USD ($)</option>
+              <option value="€">EUR (€)</option>
+              <option value="£">GBP (£)</option>
+              <option value="₹">INR (₹)</option>
+              <option value="¥">JPY (¥)</option>
             </select>
-          </div>
-          <div class="form-row">
-            <input id="expenseName" class="input" placeholder="Expense name">
-          </div>
-          <div class="form-row">
-            <input id="expenseAmount" class="input" placeholder="Amount" inputmode="decimal">
-          </div>
-          <div class="form-row">
-            <button id="addExpenseBtn" class="btn primary">Add Expense</button>
-          </div>
+          </label>
         </div>
 
-        <div class="card actions-card">
-          <input id="searchInput" class="input" placeholder="Search expenses">
-          <button id="clearAllBtn" class="btn danger full">Clear All Expenses</button>
+        <div class="actions">
+          <button type="submit" class="button primary">Add expense</button>
+          <button type="button" id="clearAll" class="button secondary">Clear history</button>
         </div>
-      </aside>
+      </form>
+    </section>
 
-      <section class="content">
-        <div id="authCard" class="card auth-card">
-          <div class="tabs">
-            <button id="showLogin" class="tab active">Login</button>
-            <button id="showSignup" class="tab">Sign Up</button>
-          </div>
-          <div id="loginForm">
-            <input id="loginEmail" class="input" placeholder="Email" type="email">
-            <input id="loginPassword" class="input" placeholder="Password" type="password">
-            <button id="loginBtn" class="btn primary full">Login</button>
-          </div>
-          <div id="signupForm" class="hidden">
-            <input id="signupName" class="input" placeholder="Full Name">
-            <input id="signupEmail" class="input" placeholder="Email" type="email">
-            <input id="signupPassword" class="input" placeholder="Password" type="password">
-            <input id="signupConfirm" class="input" placeholder="Confirm Password" type="password">
-            <button id="signupBtn" class="btn primary full">Sign Up</button>
-          </div>
-        </div>
+    <section class="history-card">
+      <div class="history-header">
+        <h2>Expense history</h2>
+        <p id="historyHint">Your expenses stay saved until you clear them.</p>
+      </div>
+      <div id="expenseList" class="expense-list">
+        <p class="empty-state">No expenses yet. Add one to begin tracking.</p>
+      </div>
+    </section>
+  </main>
 
-        <div id="history" class="card history-card hidden">
-          <h3>Expense History</h3>
-          <div id="emptyState" class="empty-state hidden">
-            <p>No expenses yet. Add your first expense to get started.</p>
-          </div>
-          <div id="historyList" class="history-list"></div>
-        </div>
-      </section>
-    </main>
-
-    <div id="loader" class="loader hidden">Loading…</div>
-    <div id="toast" class="toast hidden"></div>
-  </div>
-
-  <script type="module" src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
-
 
