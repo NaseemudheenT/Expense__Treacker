@@ -1,1 +1,118 @@
+!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#1B2B34">
+  <title>Expense Tracker</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <img src="logo.png" alt="Expense Tracker logo" class="logo">
+        <h1>Expense Tracker</h1>
+      </div>
+      <div class="actions">
+        <button id="darkToggle" class="icon-btn" title="Toggle dark mode">🌙</button>
+        <div id="userArea" class="user-area">
+          <span id="userName" class="user-name"></span>
+          <button id="logoutBtn" class="btn small secondary">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <aside class="sidebar">
+        <div class="card stats-card">
+          <div class="stat-header">
+            <div>
+              <h3 id="currentDate">--</h3>
+              <p class="muted">Today</p>
+            </div>
+          </div>
+          <div class="stat-body">
+            <div>
+              <p class="muted">Total</p>
+              <h2 id="todayTotal">0</h2>
+            </div>
+            <div>
+              <p class="muted">Count</p>
+              <h2 id="todayCount">0</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="card add-card">
+          <h3>Add Expense</h3>
+          <div class="form-row">
+            <select id="currencySelect" class="input">
+              <option value="INR">₹ INR</option>
+              <option value="USD">$ USD</option>
+              <option value="EUR">€ EUR</option>
+              <option value="GBP">£ GBP</option>
+              <option value="JPY">¥ JPY</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <input id="expenseName" class="input" placeholder="Expense name">
+          </div>
+          <div class="form-row">
+            <input id="expenseAmount" class="input" placeholder="Amount" inputmode="decimal">
+          </div>
+          <div class="form-row">
+            <button id="addExpenseBtn" class="btn primary">Add Expense</button>
+          </div>
+        </div>
+
+        <div class="card actions-card">
+          <input id="searchInput" class="input" placeholder="Search expenses">
+          <button id="clearAllBtn" class="btn danger full">Clear All Expenses</button>
+        </div>
+      </aside>
+
+      <section class="content">
+        <div id="authCard" class="card auth-card">
+          <div class="tabs">
+            <button id="showLogin" class="tab active">Login</button>
+            <button id="showSignup" class="tab">Sign Up</button>
+          </div>
+          <div id="loginForm">
+            <input id="loginEmail" class="input" placeholder="Email" type="email">
+            <input id="loginPassword" class="input" placeholder="Password" type="password">
+            <button id="loginBtn" class="btn primary full">Login</button>
+          </div>
+          <div id="signupForm" class="hidden">
+            <input id="signupName" class="input" placeholder="Full Name">
+            <input id="signupEmail" class="input" placeholder="Email" type="email">
+            <input id="signupPassword" class="input" placeholder="Password" type="password">
+            <input id="signupConfirm" class="input" placeholder="Confirm Password" type="password">
+            <button id="signupBtn" class="btn primary full">Sign Up</button>
+          </div>
+        </div>
+
+        <div id="history" class="card history-card hidden">
+          <h3>Expense History</h3>
+          <div id="emptyState" class="empty-state hidden">
+            <p>No expenses yet. Add your first expense to get started.</p>
+          </div>
+          <div id="historyList" class="history-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <div id="loader" class="loader hidden">Loading…</div>
+    <div id="toast" class="toast hidden"></div>
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
+
 
